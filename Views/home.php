@@ -10,7 +10,7 @@
     <section id="<?php echo $data['page_id'] ?>"></section>
     <h1><?php echo $data['page_title'] ?></h1>
 
-    <?php echo formatMoney(52500) ?>
+
     
 </body>
 </html>

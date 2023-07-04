@@ -1,9 +1,9 @@
 <?php
 
-    const BASE_URL = "http://localhost/tiendaVirtual/";
+    const BASE_URL = "http://localhost/tiendaVirtual";
 
     // Zona horaria
-    date_default_timezone_get('America/Mexico_City');
+    // date_default_timezone_get('America/Mexico_City');
 
     // Conexión a la base de datos
     const DB_HOST = "localhost";
