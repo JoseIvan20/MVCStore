@@ -1,4 +1,4 @@
-
+<?php headerAdmn($data); ?>
     <!-- Sidebar menu-->
 
     <main class="app-content">
@@ -19,3 +19,4 @@
         </div>
       </div>
     </main>
+    <?php footerAdmin($data); ?>

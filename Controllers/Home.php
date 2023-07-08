@@ -7,7 +7,7 @@
 
         public function home(){
             $data['page_id'] = 1;
-            $data['tag_page'] = "Home";
+            $data['page_tag'] = "Home";
             $data['page_title'] = "Página principal";
             $data['page_name'] = "home";
             $this->views->getView($this, "home", $data);

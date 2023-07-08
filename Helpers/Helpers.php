@@ -1,3 +1,4 @@
+
 <?php
 
     // Retornar la url del proyecto
@@ -9,14 +10,19 @@
     function media(){
         return BASE_URL."/Assets";
     }
-
-    function headerAdmin(){
+    // Colocamos $data para permitir la validaciòn de datos desde el controlador 
+    function headerAdmn($data=""){
         $view_header = "Views/Template/header_admin.php";
-        require_once($view_header);
+        require_once ($view_header);
     }
-    function footerAdmin(){
+    function footerAdmin($data=""){
         $view_footer = "Views/Template/footer_admin.php";
-        require_once($view_footer);
+        require_once ($view_footer);
+    }
+    // Mostrar el modal
+    function getModal(string $nameModal, $data){
+        $view_modal = "Views/Template/Modals/{$nameModal}.php";
+        require_once ($view_modal);
     }
 
     // Muestra información formateada
