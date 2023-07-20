@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
       {"data": "nombrerol"},
       {"data": "descripcion"},
       {"data": "status"},
-      {"data": "options"}
+      {"data": "options"},
     ],
     "responsive":true,
     "bDestroy": true,
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         title: 'Atención',
         text: 'Todos los campos son obligatorios.',
         showConfirmButton: true,
-        confirmButtonColor: '#009688',
+        confirmButtonColor: '#DC3545',
         confirmButtonText: 'Revisar'
       });
       return false;
@@ -96,24 +96,71 @@ document.addEventListener('DOMContentLoaded', function () {
 $('#tabelRoles').DataTable();
 
 function openModal() {
+
+  document.querySelector('#idRol').value="";
+  document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
+  document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
+  document.querySelector('#btnText').innerHTML = "Guardar";
+  document.querySelector('#titleModal').innerHTML = "Nuevo Rol";
+  document.querySelector('#formRol').reset();
+
   $('#modalFormRol').modal('show');
 }
 
-// Quiere decir qye se va a cargar el evento 'load', cuando se cargue todo el documento y va a ejecutar la funcion "fntEditRol "
-window.addEventListener('load', function(){
+// Función para que se ejecute la función fntEditRol y se pueda asignar el evento click a cada uno de los elementos
+window.addEventListener('DOMContentLoaded', function(){
   fntEditRol();
-}, false);
+}, false); 
 
-// Funcion de Actualizar
+// fntEditRol de actualizar algún registro
 function fntEditRol(){
   var btnEditRol = document.querySelectorAll(".btnEditRol");
-  btnEditRol.forEach(function(btnEditRol){
-    btnEditRol.addEventListener('click', function(){
+  btnEditRol.forEach(function(btnEditRol) {
+    btnEditRol.addEventListener('click', function() {
 
-      document.querySelector()
+      document.querySelector('#titleModal').innerHTML = "Actualizar Rol";
+      document.querySelector('.modal-header').innerHTML.replace("headerRegister", "headerUpdate");
+      document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+      document.querySelector('#btnText').innerHTML = "Actualizar";
 
-      $('#modalFormRol').modal('show');
+      // Exatrer los datos del rol
+      var idrol = this.getAttribute("rl");
+      var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+      var ajaxUrl = base_url+'/Roles/getRol'+idrol;
+      request.open("GET",ajaxUrl,true);
+      request.send();
 
-    })
+      request.onreadystatechange = function(){
+        if (request.readyState == 4 && request.status == 200) {
+
+          var objData = JSON.parse(request.responseText);
+
+          if (objData.status) {
+            document.querySelector("#idRol").value = objData.data.idrol;
+            document.querySelector("#txtNombre").value = objData.data.nombrerol;
+            document.querySelector("#txtDescripcion").value = objData.data.description;
+            if (objData.data.status == 1) {
+              var optionSelect = '<option value="1" selected class="notBlock">Activo</option>';
+            }else {
+              var optionSelect = '<option value="2" selected class="notBlock">Inactivo</option>';
+            }
+  
+            var htmlSelect = `${optionSelect}
+                              <option value="1">Actio</option>                  
+                              <option value="2">Inactivo</option>                  
+                            `;
+            document.querySelector('#listStatus').innerHTML = htmlSelect;
+            $('#modalFormRol').modal('show');
+  
+          }else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: objData.msg,
+            })
+          }
+        }
+      }
+    });
   });
 }

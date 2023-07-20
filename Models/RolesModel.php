@@ -19,6 +19,15 @@
           return $request;
         }
 
+        // Extraer Roles y mostrarlos en el modal de actualizar
+        public function selectRol(int $idrol) {
+            // Buscar rol
+            $this->intIdRol = $idrol;
+            $sql = "SELECT * FROM rol WHERE idrol = $this->intIdRol";
+            $request = $this->select($sql);
+            return $request;
+        } 
+
         // Creamos la funcion de insertRol
         public function insertRol(string $rol, string $descripcion, int $status){
             $return = "";

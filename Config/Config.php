@@ -1,6 +1,6 @@
 <?php
 
-    const BASE_URL = "http://localhost/tiendaVirtual";
+    const BASE_URL = "http://localhost/MVCStore";
 
     // Zona horaria
     // date_default_timezone_get('America/Mexico_City');

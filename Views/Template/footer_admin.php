@@ -8,9 +8,8 @@
     <script src="<?= media(); ?>/js/functions_admin.js"></script>
     <!-- Data table plugin-->
     <script src="<?= media(); ?>/js/plugins/jquery.dataTables.min.js"></script>
-    <script src="<?= media(); ?>/js/plugins/dataTables.bootstrap.min.js"></script>
     <script src="<?= media(); ?>/js/plugins/sweetalert2@11.js"></script>
 
-  <script src="<?= media(); ?>/js/functions_roles.js"></script>
+  <script src="<?= media(); ?>/js/functions_roles.js?v=1.4"></script>
   </body>
 </html>

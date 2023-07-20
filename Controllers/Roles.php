@@ -40,6 +40,22 @@
             die();
         }
 
+        // Extraer un Rol 
+        public function getRol($idrol){
+            $intIdRol = intval(strClean($idrol));
+            if ($intIdRol > 0) {
+                $arrData = $this->model->selectRol($intIdRol);
+                if (empty($arrData)) {
+                    $arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
+                }else {
+                    $arrResponse = array('status' => true, 'data' => $arrData);
+                }
+                echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+            }
+            die();
+        }
+
+        // Crear un Rol
         public function setRol(){
             // dep($_POST);
             // Creamos variables para almacenar los datos que crearemos en el modal de 'Nuevo Rol'
