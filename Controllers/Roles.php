@@ -1,4 +1,3 @@
-
 <?php
 
     class Roles extends Controllers {
@@ -28,9 +27,9 @@
 
                 // Botones de acción
                 $arrData[$i]['options'] = '<div class="text-center">
-                <button class="btn btn-secondary btn-sm btnPermisosRol" rl="'.$arrData[$i]['idrol'].'" title="Permisos"><i class="bi bi-key-fill"></i></button>
-                <button class="btn btn-primary btn-sm btnEditRol" rl="'.$arrData[$i]['idrol'].'" title="Editar"><i class="bi bi-pencil-fill"></i></button>
-                <button class="btn btn-danger btn-sm btnDelRol" rl="'.$arrData[$i]['idrol'].'" title="Eliminar"><i class="bi bi-trash-fill"></i></button>
+                <button class="btn btn-secondary btn-sm btnPermisosRol" onClick="fntPermisos('.$arrData[$i]['idrol'].')" title="Permisos"><i class="bi bi-key-fill"></i></button>
+                <button class="btn btn-primary btn-sm btnEditRol" onClick="fntEditRol('.$arrData[$i]['idrol'].')" title="Editar"><i class="bi bi-pencil-fill"></i></button>
+                <button class="btn btn-danger btn-sm btnDelRol" onClick="fntDelRol('.$arrData[$i]['idrol'].')" title="Eliminar"><i class="bi bi-trash-fill"></i></button>
                 </div>';
             }
             // dep($arrData[0]['status']);
@@ -59,21 +58,43 @@
         public function setRol(){
             // dep($_POST);
             // Creamos variables para almacenar los datos que crearemos en el modal de 'Nuevo Rol'
-            $strRol = strClean($_POST['txtNombre']);
-            $strDescripcion = strClean($_POST['txtDescripcion']);
+            $intIdrol = intval($_POST['idRol']);
+            $strRol =  strClean($_POST['txtNombre']);
+            $strDescipcion = strClean($_POST['txtDescripcion']);
             $intStatus = intval($_POST['listStatus']);
             // Envíaremos esa información al modelo y lo hacemos refiriendose al método 'insert' de myql
-            $request_rol = $this->model->insertRol($strRol, $strDescripcion, $intStatus);
 
-            if ($request_rol > 0) {
-                $arrResponse = array('status' => true, 'msg'  => 'Datos guardados correctamente.');
-            }else if($request_rol == 'exist'){
-                $arrResponse = array('status' => false, 'msg' => '¡Atención! El Rol ya existe.');
-            }else {
-                $arrResponse = array('status' => false, 'msg' => 'No es  posible almacenar los datos.');
+            // Haremos una validación poara poder actualizar el rol
+            if($intIdrol == 0)
+            {
+                // El 0 quiere decir que sino tiene un Id, entonces está creando uno nuevo...Por tanto, hacemos al llamada al insertRol 
+                // Crear
+                $request_rol = $this->model->insertRol($strRol, $strDescipcion,$intStatus);
+                $option = 1;
+            }else{
+                // De lo contrario sino es 0, si trae un Id, actualizamos el Rol con el metodo updateRol()
+                // Actutlizar
+                $request_rol = $this->model->updateRol($intIdrol, $strRol, $strDescipcion, $intStatus);
+                $option = 2;
             }
-            echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
-            die();
+
+            if($request_rol > 0 )
+            // Haremos otra validación con respecto al método de updateRol
+            {
+                if($option == 1)
+                {
+                    $arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+                }else{
+                    $arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+                }
+            }else if($request_rol == 'exist'){
+                
+                $arrResponse = array('status' => false, 'msg' => '¡Atención! El Rol ya existe.');
+            }else{
+                $arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
+            }
+            echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+        die();
         }
 
     }

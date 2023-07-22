@@ -1,3 +1,6 @@
+Swal.fire({
+  icon: 'info'
+})
 var tableRoles;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -18,23 +21,26 @@ document.addEventListener('DOMContentLoaded', function () {
       {"data": "status"},
       {"data": "options"},
     ],
-    "responsive":true,
+    "responsive": true,
     "bDestroy": true,
     "iDisplayLenght": 10,
-    "order":[[0,"asc"]]
+    "order": [
+      [0, "asc"]
+    ]
   });
 
   //  Nuevo Rol
   var formRol = document.querySelector("#formRol");
-  formRol.onsubmit = function(e){
+  formRol.onsubmit = function (e) {
     e.preventDefault();
-    
+
+    var intIdRol = document.querySelector('#idRol').value;
     var strNombre = document.querySelector('#txtNombre').value;
     var strDescripcion = document.querySelector('#txtDescripcion').value;
     var intStatus = document.querySelector('#listStatus').value;
     // Si los campos son vacíos, entonces...
-    if (strNombre == '' || strDescripcion  == '' || intStatus
-     == '') {
+    if (strNombre == '' || strDescripcion == '' || intStatus ==
+      '') {
       // Mensaje de error con SweetAlert2
       Swal.fire({
         icon: 'error',
@@ -50,12 +56,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // Haremos otra validacón request
     // Con la línea 52, detectamos si estamos en un navegador google Chrome, u otro para validarlos
     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    var ajaxUrl = base_url+'/Roles/setRol';
+    var ajaxUrl = base_url + '/Roles/setRol';
     var formData = new FormData(formRol);
     // Hacemos el envíos de datos por AJAX
-    request.open("POST",ajaxUrl,true);
+    request.open("POST", ajaxUrl, true);
     request.send(formData);
-    request.onreadystatechange = function(){
+    request.onreadystatechange = function () {
       // console.log(request);
       // Hacemos validación
       if (request.readyState == 4 && request.status == 200) {
@@ -69,23 +75,20 @@ document.addEventListener('DOMContentLoaded', function () {
             icon: 'success',
             title: 'Roles de usuario',
             text: objData.msg,
-            showConfirmButton : true,
+            showConfirmButton: true,
             confirmButtonColor: '#009688',
-            confirmButtonText:  'Listo'
+            confirmButtonText: 'Listo'
           });
-          tableRoles.api().ajax.reload(function(){
-            // fntEditRol();
-            // fntDelRol();
-            // ftnPermisos();
+          tableRoles.api().ajax.reload(function () {
           })
-        }else {
+        } else {
           Swal.fire({
             icon: 'error',
             title: 'Error',
             text: objData.msg,
-            showConfirmButton : true,
+            showConfirmButton: true,
             confirmButtonColor: '#DC3545',
-            confirmButtonText:  'Revisar'
+            confirmButtonText: 'Revisar'
           });
         }
       }
@@ -97,7 +100,7 @@ $('#tabelRoles').DataTable();
 
 function openModal() {
 
-  document.querySelector('#idRol').value="";
+  document.querySelector('#idRol').value = "";
   document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
   document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
   document.querySelector('#btnText').innerHTML = "Guardar";
@@ -108,59 +111,96 @@ function openModal() {
 }
 
 // Función para que se ejecute la función fntEditRol y se pueda asignar el evento click a cada uno de los elementos
-window.addEventListener('DOMContentLoaded', function(){
-  fntEditRol();
-}, false); 
+window.addEventListener('DOMContentLoaded', function () {
+}, false);
 
 // fntEditRol de actualizar algún registro
-function fntEditRol(){
-  var btnEditRol = document.querySelectorAll(".btnEditRol");
-  btnEditRol.forEach(function(btnEditRol) {
-    btnEditRol.addEventListener('click', function() {
+function fntEditRol(idrol) {
+  document.querySelector('#titleModal').innerHTML = "Actualizar Rol";
+  document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
+  document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+  document.querySelector('#btnText').innerHTML = "Actualizar";
 
-      document.querySelector('#titleModal').innerHTML = "Actualizar Rol";
-      document.querySelector('.modal-header').innerHTML.replace("headerRegister", "headerUpdate");
-      document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
-      document.querySelector('#btnText').innerHTML = "Actualizar";
+  var idrol = idrol;
+  var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  var ajaxUrl = base_url + '/Roles/getRol/' + idrol;
+  request.open("GET", ajaxUrl, true);
+  request.send();
 
-      // Exatrer los datos del rol
-      var idrol = this.getAttribute("rl");
-      var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-      var ajaxUrl = base_url+'/Roles/getRol'+idrol;
-      request.open("GET",ajaxUrl,true);
-      request.send();
+  request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200) {
 
-      request.onreadystatechange = function(){
-        if (request.readyState == 4 && request.status == 200) {
+      var objData = JSON.parse(request.responseText);
+      if (objData.status) {
+        document.querySelector("#idRol").value = objData.data.idrol;
+        document.querySelector("#txtNombre").value = objData.data.nombrerol;
+        document.querySelector("#txtDescripcion").value = objData.data.descripcion;
 
-          var objData = JSON.parse(request.responseText);
-
-          if (objData.status) {
-            document.querySelector("#idRol").value = objData.data.idrol;
-            document.querySelector("#txtNombre").value = objData.data.nombrerol;
-            document.querySelector("#txtDescripcion").value = objData.data.description;
-            if (objData.data.status == 1) {
-              var optionSelect = '<option value="1" selected class="notBlock">Activo</option>';
-            }else {
-              var optionSelect = '<option value="2" selected class="notBlock">Inactivo</option>';
-            }
-  
-            var htmlSelect = `${optionSelect}
-                              <option value="1">Actio</option>                  
-                              <option value="2">Inactivo</option>                  
-                            `;
-            document.querySelector('#listStatus').innerHTML = htmlSelect;
-            $('#modalFormRol').modal('show');
-  
-          }else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: objData.msg,
-            })
-          }
+        if (objData.data.status == 1) {
+          var optionSelect = '<option value="1" selected class="notBlock">Activo</option>';
+        } else {
+          var optionSelect = '<option value="2" selected class="notBlock">Inactivo</option>';
         }
+        var htmlSelect = `${optionSelect}
+                                <option value="1">Activo</option>
+                                <option value="2">Inactivo</option>
+                              `;
+        document.querySelector("#listStatus").innerHTML = htmlSelect;
+        $('#modalFormRol').modal('show');
+      } else {
+        swal("Error", objData.msg, "error");
       }
-    });
+    }
+  }
+
+}
+
+function fntDelRol(idrol){
+  var idrol = idrol;
+  Swal.fire({
+      icon: "warning",
+      title: "Eliminar Rol",
+      text: "¿Realmente quiere eliminar el Rol?",
+      confirmButtonText: "Si, eliminar!",
+      confirmButtonColor: '#00695C',
+      showCancelButton: true,
+      cancelButtonText: "No, cancelar!",
+      cancelButtonColor: '#DC3545',
+  }, function(isConfirm) {
+      
+      if (isConfirm) 
+      {
+          var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+          var ajaxUrl = base_url+'/Roles/delRol/';
+          var strData = "idrol="+idrol;
+          request.open("POST",ajaxUrl,true);
+          request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          request.send(strData);
+          request.onreadystatechange = function(){
+              if(request.readyState == 4 && request.status == 200){
+                  var objData = JSON.parse(request.responseText);
+                  if(objData.status)
+                  {
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Eliminar¡',
+                        text: objData.msg
+                      })
+                      tableRoles.api().ajax.reload(function(){
+                          fntEditRol();
+                          fntDelRol();
+                          fntPermisos();
+                      });
+                  }else{
+                      Swal.fire({
+                        icon:'error',
+                        title: 'Atención¡',
+                        text: objData.msg
+                      })
+                  }
+              }
+          }
+      }
+
   });
 }

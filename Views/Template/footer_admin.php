@@ -10,6 +10,6 @@
     <script src="<?= media(); ?>/js/plugins/jquery.dataTables.min.js"></script>
     <script src="<?= media(); ?>/js/plugins/sweetalert2@11.js"></script>
 
-  <script src="<?= media(); ?>/js/functions_roles.js?v=1.4"></script>
+  <script src="<?= media(); ?>/js/functions_roles.js?v=1.6"></script>
   </body>
 </html>
