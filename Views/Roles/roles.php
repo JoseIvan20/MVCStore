@@ -2,6 +2,7 @@
   headerAdmn($data); 
   getModal('modalRoles',$data);
 ?>
+  <div id="contentAjax"></div>
     <!-- Sidebar menu-->
 
     <main class="app-content">

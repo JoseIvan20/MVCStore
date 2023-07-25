@@ -17,7 +17,8 @@
               </div>
               <div class="mb-3">
                 <label class="form-label">Descripción</label>
-                <textarea class="form-control" rows="2" placeholder="Descripción del rol" id="txtDescripcion" name="txtDescripcion"></textarea>
+                <textarea class="form-control" rows="2" placeholder="Descripción del rol" id="txtDescripcion"
+                  name="txtDescripcion"></textarea>
               </div>
               <div class="mb-3">
                 <label class="form-label" for="exampleSelect1">Estado</label>
@@ -27,7 +28,11 @@
                 </select>
               </div>
               <div class="tile-footer">
-                <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="bi bi-check-circle-fill me-2"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;<button class="btn btn-secondary" type="button" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill me-2"></i>Cancelar</button>
+                <button id="btnActionForm" class="btn btn-primary" type="submit"><i
+                    class="bi bi-check-circle-fill me-2"></i><span
+                    id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal"><i
+                    class="bi bi-x-circle-fill me-2"></i>Cancelar</button>
               </div>
             </form>
           </div>

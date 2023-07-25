@@ -1,5 +1,5 @@
 Swal.fire({
-  icon: 'info'
+  icon: 'success'
 })
 var tableRoles;
 
@@ -148,28 +148,30 @@ function fntEditRol(idrol) {
         document.querySelector("#listStatus").innerHTML = htmlSelect;
         $('#modalFormRol').modal('show');
       } else {
-        swal("Error", objData.msg, "error");
+        // swal("Error", objData.msg, "error");
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: objData.msg
+        })
       }
     }
   }
 
 }
 
-function fntDelRol(idrol){
-  var idrol = idrol;
+function fntDelRol(idrol) {
   Swal.fire({
       icon: "warning",
       title: "Eliminar Rol",
       text: "¿Realmente quiere eliminar el Rol?",
-      confirmButtonText: "Si, eliminar!",
-      confirmButtonColor: '#00695C',
       showCancelButton: true,
-      cancelButtonText: "No, cancelar!",
-      cancelButtonColor: '#DC3545',
-  }, function(isConfirm) {
-      
-      if (isConfirm) 
-      {
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar!',
+  }).then((result) => {
+      if (result.isConfirmed) {
           var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
           var ajaxUrl = base_url+'/Roles/delRol/';
           var strData = "idrol="+idrol;
@@ -183,24 +185,69 @@ function fntDelRol(idrol){
                   {
                       Swal.fire({
                         icon: 'success',
-                        title: 'Eliminar¡',
+                        title: 'Eliminar!',
                         text: objData.msg
-                      })
+                      });
                       tableRoles.api().ajax.reload(function(){
-                          fntEditRol();
-                          fntDelRol();
-                          fntPermisos();
+                          // fntEditRol();
+                          // fntDelRol();
+                          // fntPermisos();
                       });
                   }else{
                       Swal.fire({
-                        icon:'error',
-                        title: 'Atención¡',
+                        icon: 'error',
+                        title: 'Error al Eliminar:',
                         text: objData.msg
-                      })
+                      });
                   }
               }
           }
       }
-
   });
+}
+
+function fntPermisos(idrol){
+  var idrol = idrol;
+  var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : ActiveXObject('Microsoft.XMLHTTP');
+  var ajaxUrl = base_url+'/Permisos/getPermisosRol/'+idrol;
+  request.open("GET", ajaxUrl, true);
+  request.send();
+
+  request.onreadystatechange = function(){
+    if (request.readyState == 4 && request.status == 200) {
+      // Creamos un document donde su función es cargar información desde el controlador en el modal, haciendo referencia a la variable '$html' del controlador de Permisos, línea 45
+      document.querySelector('#contentAjax').innerHTML = request.responseText;
+      $('.modalPermisos').modal('show');
+      document.querySelector('#formPermisos').addEventListener('submit', fntSavePermisos, false);
+    }
+  }
+}
+
+function fntSavePermisos(){
+  event.preventDefault();
+  var request = (window.XMLHttpRequest) ? new XMLHttpRequest : ActiveXObject('Microsoft.XMLHTTP');
+  var ajaxUrl = base_url+'/Permisos/setPermisos';
+  var formElement = document.querySelector('#formPermisos');
+  var formData = new FormData(formElement);
+  request.open("POST", ajaxUrl, true);
+  request.send(formData);
+
+  request.onreadystatechange = function(){
+    if (request.readyState == 4 && request.status == 200) {
+      var objData = JSON.parse(request.responseText);
+      if (objData.status) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Permisos de Usuario',
+          text: objData.msg
+        })
+      }else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: objData.msg
+        })
+      }
+    }
+  }
 }
