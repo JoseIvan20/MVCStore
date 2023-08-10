@@ -1,6 +1,3 @@
-Swal.fire({
-  icon: 'success'
-})
 var tableRoles;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -166,8 +163,8 @@ function fntDelRol(idrol) {
       title: "Eliminar Rol",
       text: "¿Realmente quiere eliminar el Rol?",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#00695C',
+      cancelButtonColor: '#DC3545',
       confirmButtonText: 'Si, eliminar!',
       cancelButtonText: 'No, cancelar!',
   }).then((result) => {
@@ -208,14 +205,13 @@ function fntDelRol(idrol) {
 
 function fntPermisos(idrol){
   var idrol = idrol;
-  var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : ActiveXObject('Microsoft.XMLHTTP');
+  var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
   var ajaxUrl = base_url+'/Permisos/getPermisosRol/'+idrol;
   request.open("GET", ajaxUrl, true);
   request.send();
 
   request.onreadystatechange = function(){
     if (request.readyState == 4 && request.status == 200) {
-      // Creamos un document donde su función es cargar información desde el controlador en el modal, haciendo referencia a la variable '$html' del controlador de Permisos, línea 45
       document.querySelector('#contentAjax').innerHTML = request.responseText;
       $('.modalPermisos').modal('show');
       document.querySelector('#formPermisos').addEventListener('submit', fntSavePermisos, false);
@@ -223,31 +219,33 @@ function fntPermisos(idrol){
   }
 }
 
-function fntSavePermisos(){
-  event.preventDefault();
-  var request = (window.XMLHttpRequest) ? new XMLHttpRequest : ActiveXObject('Microsoft.XMLHTTP');
-  var ajaxUrl = base_url+'/Permisos/setPermisos';
-  var formElement = document.querySelector('#formPermisos');
+function fntSavePermisos(evnet){
+  evnet.preventDefault();
+  var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  var ajaxUrl = base_url+'/Permisos/setPermisos'; 
+  var formElement = document.querySelector("#formPermisos");
   var formData = new FormData(formElement);
-  request.open("POST", ajaxUrl, true);
+  request.open("POST",ajaxUrl,true);
   request.send(formData);
 
   request.onreadystatechange = function(){
-    if (request.readyState == 4 && request.status == 200) {
-      var objData = JSON.parse(request.responseText);
-      if (objData.status) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Permisos de Usuario',
-          text: objData.msg
-        })
-      }else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: objData.msg
-        })
+      if(request.readyState == 4 && request.status == 200){
+          var objData = JSON.parse(request.responseText);
+          if(objData.status)
+          {
+            Swal.fire({
+              icon: 'success',
+              title:'Permisos de Usuario.',
+              text:objData.msg,
+            });
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title:"Error",
+              text:objData.msg,
+            });
+          }
       }
-    }
   }
+  
 }

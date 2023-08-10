@@ -13,8 +13,7 @@
 		}
 
 		//Insertar un registro
-		public function insert(string $query, array $arrValues)
-		{
+		public function insert(string $query, array $arrValues){
 			$this->strquery = $query;
 			$this->arrVAlues = $arrValues;
         	$insert = $this->conexion->prepare($this->strquery);
@@ -28,8 +27,7 @@
 	        return $lastInsert; 
 		}
 		//Busca un registro
-		public function select(string $query)
-		{
+		public function select(string $query){
 			$this->strquery = $query;
         	$result = $this->conexion->prepare($this->strquery);
 			$result->execute();
@@ -37,8 +35,7 @@
         	return $data;
 		}
 		//Devuelve todos los registros
-		public function select_all(string $query)
-		{
+		public function select_all(string $query){
 			$this->strquery = $query;
         	$result = $this->conexion->prepare($this->strquery);
 			$result->execute();
@@ -46,8 +43,7 @@
         	return $data;
 		}
 		//Actualiza registros
-		public function update(string $query, array $arrValues)
-		{
+		public function update(string $query, array $arrValues){
 			$this->strquery = $query;
 			$this->arrVAlues = $arrValues;
 			$update = $this->conexion->prepare($this->strquery);
@@ -55,8 +51,7 @@
 	        return $resExecute;
 		}
 		//Eliminar un registros
-		public function delete(string $query)
-		{
+		public function delete(string $query){
 			$this->strquery = $query;
         	$result = $this->conexion->prepare($this->strquery);
 			$del = $result->execute();

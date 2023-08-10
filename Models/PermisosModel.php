@@ -1,7 +1,7 @@
 <?php
 
     class PermisosModel extends Mysql{
-        public $intIdPermiso;
+        public $intIdpermiso;
         public $intRolid;
         public $intModuloid;
         public $r;
@@ -16,21 +16,21 @@
         public function selectModulos() {
             $sql = "SELECT * FROM modulo WHERE status != 0";
             $request = $this->select_all($sql);
-            return $request ;
+            return $request;
         }
-        public function selectPermisosRol(int $idrol) {
+
+        public function selectPermisosRol(int $idrol){
             $this->intRolid = $idrol;
             $sql = "SELECT * FROM permisos WHERE rolid = $this->intRolid";
             $request = $this->select_all($sql);
             return $request;
         }
 
-        public function deletePermisos(int $idrol) {
-            // Esto, va a averificar en la tabla que se llama 'Permisos' y va a eliminar todos esos registros que tenga ese rol para asginar los nuevos registros.
+        public function deletePermisos(int $idrol){
             $this->intRolid = $idrol;
-            $sql = "DELETE * FROM permisos WHERE rolid = $this->intRolid";
+            $sql = "DELETE FROM permisos WHERE rolid = $this->intRolid ";
             $request = $this->delete($sql);
-            return $request; 
+            return $request;
         }
 
 		public function insertPermisos(int $idrol, int $idmodulo, int $r, int $w, int $u, int $d){
@@ -46,7 +46,6 @@
 	        return $request_insert;
 		}
     }
-    
 
 
 ?>

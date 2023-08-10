@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
     <title><?= $data['page_tag'] ?></title>
     <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/main2.css">
+    <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/main2.css?v=1.1">
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/style.css?v=1.1">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
