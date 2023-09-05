@@ -5,7 +5,7 @@
 
             <div class="modal-header">
                 <h5 class="modal-title h4">Permisos Roles de Usuario</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
@@ -97,7 +97,7 @@
                             <div class="text-center">
                                 <button class="btn btn-success" type="submit"><i class="fa bi bi-check-circle-fill me-2"
                                         aria-hidden="true"></i> Guardar</button>
-                                <button class="btn btn-danger" type="button" data-bs-dismiss="modal"><i
+                                <button class="btn btn-danger" type="button" data-dismiss="modal"><i
                                         class="bi bi-x-circle-fill me-2" aria-hidden="true"></i> Salir</button>
                             </div>
                         </form>

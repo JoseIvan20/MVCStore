@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Tienda Virtual(MVC, boostrap, JS, AJAX, HTML, CSS, PHP, JSON)">
     <meta name="author" content="Ivàn">
-    <meta name="theme-color" content="#009688">
+    <meta name="theme-color" content="#00695C">
     <link rel="shortcut icon" href="<?= media(); ?>/images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
     <title><?= $data['page_tag'] ?></title>
     <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/main2.css?v=1.1">
+    <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/main2.css?v=1.2">
+    <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/bootstrap-select.css"> 
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/style.css?v=1.1">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">

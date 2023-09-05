@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header headerRegister">
         <h1 class="modal-title fs-5" id="titleModal">Nuevo Rol</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="tile">
@@ -31,7 +31,7 @@
                 <button id="btnActionForm" class="btn btn-primary" type="submit"><i
                     class="bi bi-check-circle-fill me-2"></i><span
                     id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;
-                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal"><i
+                <button class="btn btn-secondary" type="button" data-dismiss="modal"><i
                     class="bi bi-x-circle-fill me-2"></i>Cancelar</button>
               </div>
             </form>

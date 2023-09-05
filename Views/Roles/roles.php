@@ -10,7 +10,7 @@
         <div>
           <h1>
             <i class="bi bi-person-lines-fill"></i> <?= $data['page_title'] ?>
-            <button class="btn btn-primary" type="button" onclick="openModal();"><i class="bi bi-plus-circle-fill"></i>&nbsp;Nuevo Rol</button>
+            <button class="btn btn-primary" type="button" onclick="openModal();"><i class="bi bi-plus-circle-fill"></i>&nbsp;Nuevo</button>
           </h1>
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -27,7 +27,7 @@
                 <table class="table table-hover table-bordered" id="tabelRoles">
                   <thead>
                     <tr>
-                      <th>Id Rol</th>
+                      <th>Id</th>
                       <th>Nombre Rol</th>
                       <th>Descripción</th>
                       <th>Status</th>
